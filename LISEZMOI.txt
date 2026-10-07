@@ -1,0 +1,98 @@
+JuriFormulaires — Démo à accès limité (gratuite, sans paiement)
+==================================================================
+
+CE QUE C'EST
+-------------
+Une version de démonstration du prototype, protégée par un simple code
+d'accès. Pas de paiement, pas de Stripe — tu envoies un code à quelqu'un
+(ta cousine Claudia, un autre avocat, etc.) et cette personne l'entre sur
+le site pour débloquer l'application.
+
+Ce n'est PAS une sécurité réelle (le code reste visible dans le code
+source si quelqu'un cherche), mais ça suffit largement pour filtrer
+l'accès à des gens à qui tu envoies un lien — exactement ce que tu
+voulais.
+
+
+COMMENT AJOUTER / RETIRER DES CODES D'ACCÈS
+---------------------------------------------
+Ouvre le fichier :  src/AccessGate.jsx
+
+Tout en haut, tu vas voir :
+
+    const VALID_CODES = [
+      'CLAUDIA2026',
+    ];
+
+Ajoute simplement une ligne par personne, par exemple :
+
+    const VALID_CODES = [
+      'CLAUDIA2026',
+      'MAITRE-TREMBLAY',
+      'BARREAU2026',
+    ];
+
+Astuce : donne un code différent à chaque personne — ça te permet de
+savoir, si tu veux un jour, qui a probablement partagé son lien plus
+loin (et de désactiver juste ce code-là en le retirant de la liste).
+
+Après avoir modifié ce fichier, il faut redéployer (voir plus bas).
+
+
+METTRE À JOUR LE SITE SUR GITHUB + VERCEL (déjà configurés)
+--------------------------------------------------------------
+Tu as déjà un dépôt GitHub (JuriFormulaires) connecté à Vercel. La
+dernière fois, le dossier "src" manquait lors de l'envoi — assure-toi
+cette fois de bien envoyer TOUT le contenu de ce dossier-ci, y compris
+le sous-dossier src au complet.
+
+Étapes :
+
+1. Va sur https://github.com/jpbrochu/JuriFormulaires
+2. Clique sur "Add file" → "Upload files"
+3. Glisse-dépose TOUS les fichiers et dossiers de ce zip SAUF le dossier
+   "rendertest" (c'est seulement pour mes propres tests, pas nécessaire
+   sur le site) :
+     - index.html
+     - package.json
+     - postcss.config.js
+     - tailwind.config.js
+     - vite.config.js
+     - .gitignore
+     - le dossier src (au complet, avec tous les fichiers dedans)
+4. En bas de la page, écris un message du genre "Mise à jour démo avec
+   accès par code" et clique "Commit changes"
+5. Vercel va détecter le changement automatiquement et redéployer le
+   site en 1-2 minutes (tu peux suivre ça sur vercel.com, dans ton
+   projet)
+
+Une fois déployé, le lien que tu envoies aux gens reste le même
+(ton domaine Vercel, ou juriformulaires.com si tu l'as pointé dessus) —
+ils verront simplement l'écran de code au lieu d'aller directement dans
+l'application.
+
+
+CE QUI A ÉTÉ CORRIGÉ DANS CETTE VERSION
+-------------------------------------------
+- Union parentale (SJ-1337) : date d'établissement du patrimoine,
+  séparation R.R.Q. / R.P.C., références de pièces structurées
+  (Titre de propriété / Valeur marchande / Dettes)
+- Logement (TAL) : vrais noms de formulaires du Tribunal administratif
+  du logement (non-paiement de loyer, reprise de logement, éviction,
+  expulsion après fin de bail, indemnité de relocation, cession de
+  bail, etc.)
+- Successions : liste des 10 démarches de liquidation typiques, et
+  avertissement automatique si la part d'un héritier mineur dépasse
+  40 000 $ (conseil de tutelle / curateur public requis)
+- Petites créances : avertissement sur l'inadmissibilité des litiges
+  de bail et des pensions alimentaires, et rappel que les avocats ne
+  peuvent pas représenter une partie à l'audience (art. 543 C.p.c.)
+
+Tout a été vérifié visuellement (captures d'écran) avant l'envoi.
+
+
+PROCHAINE ÉTAPE SUGGÉRÉE
+----------------------------
+Une fois le site redéployé, teste toi-même le lien avec le code
+CLAUDIA2026 avant de l'envoyer à ta cousine, pour confirmer que tout
+s'affiche bien chez toi aussi.
